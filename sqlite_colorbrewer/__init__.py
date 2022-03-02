@@ -17,7 +17,7 @@ if has_datasette:
 
 
 def register(conn):
-    conn.create_function("colorbrewer", 3, color)
+    conn.create_function("colorbrewer", 3, color, deterministic=True)
 
 
 def color(scheme, count, n):
