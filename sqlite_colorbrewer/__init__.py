@@ -1,4 +1,6 @@
 import sqlite3
+import sys
+
 from . import colorbrewer
 
 try:
@@ -17,7 +19,10 @@ if has_datasette:
 
 
 def register(conn):
-    conn.create_function("colorbrewer", 3, color, deterministic=True)
+    if sys.version_info >= (3, 8):
+        conn.create_function("colorbrewer", 3, color, deterministic=True)
+    else:
+        conn.create_function("colorbrewer", 3, color)
 
 
 def color(scheme, count, n):
